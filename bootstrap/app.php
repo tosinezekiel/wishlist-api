@@ -31,6 +31,12 @@ return Application::configure(basePath: dirname(__DIR__))
                     ], 404);
                 }
 
+                if ($e instanceof \Symfony\Component\Routing\Exception\RouteNotFoundException) {
+                    return response()->json([
+                        'message' => 'Route not found.',
+                    ], 404);
+                }
+
                 if ($e instanceof \Illuminate\Validation\ValidationException) {
                     return response()->json([
                         'message' => 'The given data was invalid.',
@@ -70,7 +76,7 @@ return Application::configure(basePath: dirname(__DIR__))
                             'file' => $e->getFile(),
                             'line' => $e->getLine(),
                         ]
-                        : null,
+                        : "Something went wrong.",
                 ], 500);
             }
         });

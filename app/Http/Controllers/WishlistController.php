@@ -6,6 +6,7 @@ use App\DTOs\AddToWishlistDTO;
 use App\DTOs\RemoveFromWishlistDTO;
 use App\Http\Requests\Wishlist\AddToWishlistRequest;
 use App\Http\Requests\Wishlist\RemoveFromWishlistRequest;
+use App\Http\Requests\Wishlist\WishlistRequest;
 use App\Http\Resources\WishlistItemResource;
 use App\Models\Product;
 use App\Services\WishlistService;
@@ -20,14 +21,13 @@ class WishlistController extends Controller
     ) {
     }
 
-    public function index(Request $request): JsonResponse
+    public function index(WishlistRequest $request): JsonResponse
     {
-        $user = $request->user();
-        $wishlistItems = $this->wishlistService->getUserWishlist($user->id);
-
-        return response()->json([
-            'data' => WishlistItemResource::collection($wishlistItems),
-        ], 200);
+        $wishlistFilterDTO = $request->toDTO();
+        $wishlistItems = $this->wishlistService->getUserWishlist($wishlistFilterDTO);
+        return WishlistItemResource::collection($wishlistItems)
+            ->response()
+            ->setStatusCode(200);
     }
 
     public function store(AddToWishlistRequest $request): JsonResponse

@@ -2,12 +2,8 @@
 
 namespace App\DTOs;
 
-class ProductFilterDTO
+use App\DTOs\Filter\AbstractDTO;
+
+class ProductFilterDTO extends AbstractDTO
 {
-    public function __construct(
-        public readonly int $perPage,
-        public readonly ?string $sortBy,
-        public readonly ?string $sortDirection,
-        public readonly ?string $search
-    ) {}
 }

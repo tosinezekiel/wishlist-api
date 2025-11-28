@@ -124,14 +124,14 @@ Authorization: Bearer {token}
 
 #### List Products
 
-**GET** `/api/products` or `api/products?per_page=20&sort_by=price&sort_direction=desc&search=phone`
+**GET** `/api/products` or `/api/products?per_page=20&sort_by=price&sort_direction=desc&search=phone`
 
 Get a list of all available products.
 ```
 
 #### Get Wishlist
 
-**GET** `/api/wishlist`
+**GET** `/api/wishlist` | `/api/wishlist?per_page=1&sort_by=price&sort_direction=asc&search=Mechanical Keyboard`
 
 Get the authenticated user's wishlist.
 
@@ -173,17 +173,4 @@ Authorization: Bearer {token}
 
 ```bash
 php artisan test
-```
-
-## Error Handling
-
-All errors follow a consistent JSON structure:
-
-```json
-{
-  "message": "Error message",
-  "errors": {
-    "field": ["Error message for field"]
-  }
-}
 ```

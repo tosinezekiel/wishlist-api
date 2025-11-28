@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Product;
 
 use App\DTOs\ProductFilterDTO;
 use Illuminate\Foundation\Http\FormRequest;
@@ -24,11 +24,6 @@ class ProductRequest extends FormRequest
 
     public function toDTO(): ProductFilterDTO
     {
-        return new ProductFilterDTO(
-            perPage: $this->integer('per_page', 10),
-            sortBy: $this->string('sort_by')->toString(),
-            sortDirection: $this->string('sort_direction')->toString() ?: 'desc',
-            search: $this->string('search')->toString()
-        );
+        return ProductFilterDTO::fromRequest($this);
     }
 }
